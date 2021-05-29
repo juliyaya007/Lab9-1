@@ -67,6 +67,77 @@
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
     // TODO - Make buttons functional
+    errorBtns[0].addEventListener("click", () => {
+      console.log("Console Log Demo");
+    });
+    errorBtns[1].addEventListener("click", () => {
+      console.error("Console Error Demo");
+    });
+    errorBtns[2].addEventListener("click", () => {
+      console.dir(errorBtns[2]);
+    });
+    errorBtns[3].addEventListener("click", () => {
+      console.dirxml(document.body);
+    });
+    errorBtns[4].addEventListener("click", () => {
+      const label = 'Log Group';
+      console.group(label);
+    });
+    errorBtns[5].addEventListener("click", () => {
+      // console.log("end");
+      const label = 'Log Group';
+      console.groupEnd(label);
+    });
+    errorBtns[6].addEventListener("click", () => {
+      console.table([
+  {
+    name: 'Software Engineering',
+    num: 110,
+  },
+  {
+    name: 'Programming Languages',
+    num: 130,
+  },
+  {
+    name: 'Advanced Software Engineering',
+    num: 112,
+  }
+]);
+    });
+    var start;
+    errorBtns[7].addEventListener("click", () => {
+      console.log("Timer started!");
+      start = console.time("Run Time");
+    });
+    errorBtns[8].addEventListener("click", () => {
+      console.log("Timer ended!");
+      var end = console.timeEnd("Run Time");
+
+      // var t = end-start;
+      // console.log("Run Time: " + t);
+    });
+    errorBtns[9].addEventListener("click", () => {
+      // console.trace();
+      const onclick = () => { traceTest(); };
+      const traceTest = () => { deep(); };
+      const deep = () => { deeper(); };
+      const deeper = () => { deepest(); };
+      const deepest = () => { console.trace(); };
+      onclick();
+    });
+    errorBtns[10].addEventListener("click", () => {
+      try {
+        aintGonnaWork();
+      } catch (e) {
+        console.log(e instanceof ReferenceError) 
+        console.log(e.message)                    // "undefinedVariable is not defined"
+        console.log(e.name)                       // "ReferenceError"
+        console.log(e.fileName)                   // "Scratchpad/1"
+        console.log(e.lineNumber)                 // 2
+        console.log(e.columnNumber)               // 6
+        console.log(e.stack)  
+      }
+    });
   </script>
 </body>
 </html>
