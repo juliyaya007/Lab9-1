@@ -54,16 +54,36 @@
     <button>Console Trace</button>
     <button>Trigger a Global Error</button>
   </section>
-
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "4fe0daa60ad2494a893a2c316cd2074f"
+      
+    });
+  </script>
+                          
+  <script>
+    class ValidationError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "ValidationError";
+      }
+  }
+
     let calculateBtn = document.querySelector('#calculate');
     calculateBtn.addEventListener('click', () => {
       let output = document.querySelector('output');
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
+      inputtest(firstNum, secondNum);
       let operator = document.querySelector('#operator').value;
       output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
     });
+    function inputtest(firstNum, secondNum){
+      if(isNaN(parseInt(firstNum)) || isNaN(parseInt(secondNum))){
+        throw new ValidationError("You need 2 valid numbers");
+      }
+    }
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
     // TODO - Make buttons functional
@@ -138,6 +158,11 @@
         console.log(e.stack)  
       }
     });
+
+    window.onerror = function () {
+      alert("there has been a mistake")
+      TrackJS.track('Testing TrackJS!');
+    }
   </script>
 </body>
 </html>
